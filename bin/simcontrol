@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+requier Thor
+
+class SimControl < Thor
+  desc "init", "creates scaffolding for SimControl in this directory"
+  def init
+
+  end
+end
+
+SimControl.start(argv)
