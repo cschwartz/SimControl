@@ -4,9 +4,17 @@ require "thor"
 require "simcontrol"
 
 class SimControlCLI < Thor
+  include Thor::Actions
+
   desc "init", "creates scaffolding for SimControl in this directory"
   def init
-    SimControl::Init.createScaffolding(Dir.pwd)
+    base_dir = Dir.pwd
+    destination_root= base_dir
+    directory "scaffolding"
+  end
+
+  def self.source_root
+    File.join(File.dirname(__FILE__), '..', 'templates', 'scaffolding')
   end
 end
 
