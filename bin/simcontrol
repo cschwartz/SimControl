@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-requier Thor
+require "thor"
 
 class SimControl < Thor
   desc "init", "creates scaffolding for SimControl in this directory"
