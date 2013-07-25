@@ -2,11 +2,11 @@
 
 require "thor"
 
-class SimControl < Thor
+class SimControlCLI < Thor
   desc "init", "creates scaffolding for SimControl in this directory"
   def init
 
   end
 end
 
-SimControl.start(argv)
+SimControlCLI.start(argv)
