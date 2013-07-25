@@ -5,7 +5,7 @@ require "thor"
 class SimControlCLI < Thor
   desc "init", "creates scaffolding for SimControl in this directory"
   def init
-
+    SimControl::Init.createScaffolding(Dir.pwd)
   end
 end
 
