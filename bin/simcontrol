@@ -9,4 +9,4 @@ class SimControlCLI < Thor
   end
 end
 
-SimControlCLI.start(argv)
+SimControlCLI.start(ARGV)
