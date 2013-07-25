@@ -17,5 +17,15 @@ gem 'SimControl'
    structure:
 
 ```
+├── Controlfile
+├── Gemfile
+├── Gemfile.lock
+├── results
+└── scenarios
+```
 
+ * In order to create your first simulation scenario, run
+
+```
+bundle exec simcontrol scenario myScenario
 ```

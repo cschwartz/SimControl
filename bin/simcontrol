@@ -10,11 +10,14 @@ class SimControlCLI < Thor
   def init
     base_dir = Dir.pwd
     destination_root= base_dir
-    directory "scaffolding"
+    directory "scaffolding/scenarios", "scenarios"
+    directory "scaffolding/results", "results"
+    copy_file "scaffolding/Controlfile", "Controlfile"
+
   end
 
   def self.source_root
-    File.join(File.dirname(__FILE__), '..', 'templates', 'scaffolding')
+    File.join(File.dirname(__FILE__), '..', 'templates')
   end
 end
 
