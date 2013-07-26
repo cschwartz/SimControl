@@ -1,1 +1,15 @@
-Content
+hosts do
+  #A host with name "hostname"
+  #host "hostname"
+
+  #Another host, with 3 cores to be used for simulation
+  #host "another-hostname", cores: 3
+end
+
+#currently only a python environment is implemented
+simulation PythonEnvironment, "/path/to/simulation.py" do
+  #use a virtualenv, not the global python
+  #virtualenv "/path/to/virtualenv"
+  #do not use the default system python but pypy
+  #interpreter "pypy"
+end
