@@ -14,4 +14,13 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+
+  config.before do
+    #remove this as soon as FakeFS is released > 0.4.2
+    class ::FakeFS::File
+      def self.binread(file)
+        File.open(file, 'rb') { |f| f.read }
+      end
+    end
+  end 
 end

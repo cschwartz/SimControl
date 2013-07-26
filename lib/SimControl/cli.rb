@@ -8,10 +8,9 @@ module SimControl
     def init
       base_dir = Dir.pwd
       destination_root= base_dir
-      directory "scaffolding/scenarios", "scenarios"
-      directory "scaffolding/results", "results"
+      empty_directory "scenarios"
+      empty_directory "results"
       copy_file "scaffolding/Controlfile", "Controlfile"
-
     end
 
     def self.source_root
