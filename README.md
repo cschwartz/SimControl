@@ -29,3 +29,18 @@ gem 'SimControl'
 ```
 bundle exec simcontrol scenario myScenario
 ```
+
+which creates a results subfolder named myScenario as well as a scenario
+description file myScenario.rb in the scenarios folder, resulting in the
+following overall project structure:
+
+```
+.
+├── Controlfile
+├── Gemfile
+├── Gemfile.lock
+├── results
+│   └── myScenario
+└── scenarios
+    └── myScenario.rb
+```
