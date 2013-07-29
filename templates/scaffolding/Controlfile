@@ -7,9 +7,8 @@ hosts do
 end
 
 #currently only a python environment is implemented
-simulation PythonEnvironment, "/path/to/simulation.py" do
+simulation PythonEnvironment, "/path/to/simulation.py",
   #use a virtualenv, not the global python
-  #virtualenv "/path/to/virtualenv"
+  virtualenv: "/path/to/virtualenv",
   #do not use the default system python but pypy
-  #interpreter "pypy"
-end
+  interpreter: "pypy"
