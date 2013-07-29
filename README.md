@@ -8,7 +8,7 @@ Usage Example
    /home/simpy/control/, create a `Gemfile` with the
    following content:
 
-```
+```ruby
 source 'https://rubygems.org'
 gem 'SimControl'
 ```
@@ -83,10 +83,9 @@ end
 This describes 10 scenarios, each with 10 repetitions are described. A
 system with a varying number of server components is simulated for a
 duration of 25 hours,  the first hour is exempt from statistic
-w
 collection to account for the transient phase.
 
-Next, we consider the execution of the simulation on one of the hosts
+ * Next, we consider the execution of the simulation on one of the hosts
 specified in the Controlfile by running `bundle exec simulate
 myScenario`.
 First, all scenarios, i.e. calls to simulate, are enumerated. Then, they
@@ -112,14 +111,16 @@ In our example this results in the following simulation scenarios. Note,
 that in our example each of the scenarios is executed with varying
 parameter values for SEED (seed generation is discussed later).
 
-| Host | Core | Command |
-| host | %    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 1 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario/ 
-| host | %    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 11 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario/ 
-| host | %    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 21 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario/ 
-| another-host | 1    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 1 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario
-| another-host | 1    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 11 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario
-| another-host | 1    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 21 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario
-| another-host | 2    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 1 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario
-| another-host | 2    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 11 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario
-| another-host | 3    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 1 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario
-| another-host | 3    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 11 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario
+| Host         | Core | Command |
+|--------------|------|---------|
+| host         | %    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 1 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario/ |
+| host         | %    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 11 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario |
+| host         | %    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 21 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario |
+| another-host | 1    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 1 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario |
+| another-host | 1    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 11 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario |
+| another-host | 1    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 21 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario |
+| another-host | 2    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 1 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario |
+| another-host | 2    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 11 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario |
+| another-host | 3    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 1 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario |
+| another-host | 3    | /home/simpy/simpy-env/bin/pypy /home/simpy/simulation/simulation.py --numberOfServers 11 --duration 90000 --transientPhaseDuration 3600 --seed SEED --results /home/simpy/control/results/myScenario |
+
