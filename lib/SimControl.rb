@@ -1,5 +1,6 @@
 require "SimControl/version"
 require "SimControl/cli"
+require "SimControl/controller"
 
 module SimControl
   def self.root
