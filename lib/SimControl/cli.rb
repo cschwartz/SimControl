@@ -31,48 +31,50 @@ module SimControl
                                     results_directory(scenario))
     end
 
+    no_commands {
     def simulation_description
-      File.open(control_file_name).read
-    end
+        File.open(control_file_name).read
+      end
 
-    def scenario_description(scenario)
-      File.open(scenario_file_name(scenario)).read
-    end
+      def scenario_description(scenario)
+        File.open(scenario_file_name(scenario)).read
+      end
 
-    def results_directory(scenario)
-      File.join("results", scenario)
-    end
+      def results_directory(scenario)
+        File.join("results", scenario)
+      end
 
-    def control_file_name
-      File.join(Dir.pwd, "Controlfile")
-    end
+      def control_file_name
+        File.join(Dir.pwd, "Controlfile")
+      end
 
-    def scenario_file_name(scenario)
-      File.join(Dir.pwd, "scenarios",  "#{ scenario }.rb")
-    end
+      def scenario_file_name(scenario)
+        File.join(Dir.pwd, "scenarios",  "#{ scenario }.rb")
+      end
 
-    def self.scenario_files_exist?(scenario)
-      raise Thor::Error.new "#{ CLI::scenario_path(scenario) } missing, run newScenario # scenario }" unless File.exists?(CLI::scenario_path(scenario))
-      raise Thor::Error.new "#{ CLI::results_path(scenario) } missing, run newScenario # scenario }" unless File.directory?(CLI::results_path(scenario))
-    end
+      def self.scenario_files_exist?(scenario)
+        raise Thor::Error.new "#{ CLI::scenario_path(scenario) } missing, run newScenario # scenario }" unless File.exists?(CLI::scenario_path(scenario))
+        raise Thor::Error.new "#{ CLI::results_path(scenario) } missing, run newScenario # scenario }" unless File.directory?(CLI::results_path(scenario))
+      end
 
-    def self.results_path(scenario_name)
-      results_path = File.join("results", scenario_name)
-    end
+      def self.results_path(scenario_name)
+        results_path = File.join("results", scenario_name)
+      end
 
-    def self.scenario_path(scenario_name)
-      scenario_path = File.join("scenarios", "#{scenario_name}.rb")
-    end
+      def self.scenario_path(scenario_name)
+        scenario_path = File.join("scenarios", "#{scenario_name}.rb")
+      end
 
-    def self.init_generated_files_exist?
-      raise Thor::Error.new "scenarios missing, run init" unless File.directory?("scenarios")
-      raise Thor::Error.new "results missing, run init" unless File.directory?("results")
-      raise Thor::Error.new "Controlfile missing, run init" unless File.exists?("Controlfile")
-    end
+      def self.init_generated_files_exist?
+        raise Thor::Error.new "scenarios missing, run init" unless File.directory?("scenarios")
+        raise Thor::Error.new "results missing, run init" unless File.directory?("results")
+        raise Thor::Error.new "Controlfile missing, run init" unless File.exists?("Controlfile")
+      end
 
-    def self.source_root
-      File.join(SimControl.root, 'templates')
-    end
+      def self.source_root
+        File.join(SimControl.root, 'templates')
+      end
+  }
   end
 end
 
