@@ -29,10 +29,10 @@ Usage Example
    ```ruby
    hosts do
      #A host with name "hostname"
-     #host "hostname"
+     use "hostname"
    
      #Another host, with 3 cores to be used for simulation
-     #host "another-hostname", cores: 3
+     use "another-hostname", cores: 3
    end
    
    #currently only a python environment is implemented
