@@ -1,7 +1,8 @@
 class SimControl::Controller
   attr_reader :current_simulation
 
-  def initialize(simulation_description, scenario_description, results_directory, args = {})
+  def initialize(hostname, simulation_description, scenario_description, results_directory, args = {})
+    @hostname = hostname
     @simulation_description = simulation_description
     @scenario_description = scenario_description
     @results_directory = results_directory
@@ -13,9 +14,16 @@ class SimControl::Controller
     instance_eval(@simulation_description)
     instance_eval(@scenario_description)
 
-    @hosts.partition([],  "a-hostname").each do |scenarios_per_core|
+    @hosts.partition([],  @hostname).each do |scenarios_per_core|
+      threads = []
       scenarios_per_core.each do |scenario|
-        current_simulation.simulate(scenario)
+        threads << Thread.new do
+          current_simulation.simulate(scenario, seeds)
+        end
+
+        threads.each do |thread|
+          thread.join
+        end
       end
     end
   end
@@ -29,8 +37,8 @@ class SimControl::Controller
   end
 
   class << self
-    def execute(simulation_description, scenario_description, results_directory)
-      controller = SimControl::Controller.new(simulation_description, scenario_description, results_directory)
+    def execute(hostname, simulation_description, scenario_description, results_directory)
+      controller = SimControl::Controller.new(hostname, simulation_description, scenario_description, results_directory)
       controller.run
     end
   end

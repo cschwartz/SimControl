@@ -26,13 +26,17 @@ module SimControl
       SimControl::CLI.init_generated_files_exist?
       SimControl::CLI.scenario_files_exist?(scenario)
 
-      SimControl::Controller.execute(simulation_description,
+      SimControl::Controller.execute(hostname, 
+                                    simulation_description,
                                     scenario_description(scenario),
                                     results_directory(scenario))
     end
 
     no_commands {
-    def simulation_description
+      def hostname
+        Socket.gethostname
+      end
+      def simulation_description
         File.open(control_file_name).read
       end
 
