@@ -44,13 +44,22 @@ scenario
     end
   end
 
+  describe "#repetitions" do
+    it "allows to specify the number of repetitions" do
+      instance = SimControl::Controller.new("", "", "", "")
+      instance.repetitions 10
+      expect(instance.seeds.length).to eq(10)    
+      instance.run
+    end
+  end
+
   describe "#simulation" do
     it "creates a new instance of the given class and passes the hash" do
       hash = double("Hash")
       instance = SimControl::Controller.new("", "", "", "")
       Klass = double("Klass")
       Klass.should_receive(:new).with(hash)
-      instance.simulate Klass, hash
+      instance.simulation Klass, hash
     end
 
     it "allows for the instance to be obtained as #current_simulation" do
@@ -58,8 +67,20 @@ scenario
       instance = SimControl::Controller.new("", "", "", "")
       Klass = double("Klass")
       Klass.stub(:new) { simulation_instance }
-      instance.simulate Klass, {}
+      instance.simulation Klass, {}
       expect(instance.current_simulation).to be(simulation_instance)
+    end
+  end
+
+  describe "#scenario" do
+    it "stores all provided scenarios in all_scenarios" do
+      scenario_a = {foo: 1}
+      scenario_b = {foo: 2}
+      instance = SimControl::Controller.new("", "", "", "")
+      instance.simulate scenario_a
+      instance.simulate scenario_b
+      expect(instance.all_scenarios).to include(scenario_a)
+      expect(instance.all_scenarios).to include(scenario_b)
     end
   end
 

@@ -2,12 +2,17 @@ class SimControl::Controller
   attr_reader :current_simulation
 
   def initialize(hostname, simulation_description, scenario_description, results_directory, args = {})
+    @hosts = args.delete(:hosts) || SimControl::Hosts.new
+
     @hostname = hostname
     @simulation_description = simulation_description
     @scenario_description = scenario_description
     @results_directory = results_directory
 
-    @hosts = args.delete(:hosts) || SimControl::Hosts.new
+    @scenarios = []
+
+    @meta_seed = 13
+    @max_seed = 2**(32 - 1) - 1
   end 
 
   def run
@@ -28,12 +33,29 @@ class SimControl::Controller
     end
   end
 
+  def repetitions(number_of_repetitions)
+    @number_of_repetitions = number_of_repetitions
+  end
+
   def hosts(&hosts_block)
     @hosts.process &hosts_block
   end
 
-  def simulate(klass, arguments)
+  def simulation(klass, arguments)
     @current_simulation = klass.new arguments
+  end
+
+  def seeds
+    @rng = Random.new(@meta_seed)
+    (1..@number_of_repetitions).map { @rng.rand(@max_seed) }
+  end
+
+  def simulate(scenario)
+    @scenarios << scenario
+  end
+
+  def all_scenarios
+    @scenarios
   end
 
   class << self
