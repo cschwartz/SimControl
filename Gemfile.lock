@@ -2,14 +2,20 @@ PATH
   remote: .
   specs:
     SimControl (0.0.1)
+      active_support
+      i18n
       thor
 
 GEM
   remote: https://rubygems.org/
   specs:
+    active_support (3.0.0)
+      activesupport (= 3.0.0)
+    activesupport (3.0.0)
     coderay (1.0.9)
     diff-lcs (1.2.4)
     fakefs (0.4.2)
+    i18n (0.6.4)
     method_source (0.8.1)
     pry (0.9.12.2)
       coderay (~> 1.0.5)

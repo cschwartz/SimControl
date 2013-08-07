@@ -9,6 +9,13 @@ describe SimControl::Hosts do
     end
   end
 
+  it "provides the total number of cores" do
+    hosts = SimControl::Hosts.new
+    hosts.use "host-a"
+    hosts.use "host-b", cores: 2
+    expect(hosts.number_of_cores).to eq(3)
+  end
+
   it "splits scenarios evenly if all hosts have 1 core" do
     hosts = SimControl::Hosts.new
     hosts.use "host-a"
@@ -26,4 +33,9 @@ describe SimControl::Hosts do
     expect(host_b_scenarios).to include(scenario_d)
   end
 
+  it "returns the empty list if no scenarios exist for a host" do
+    hosts = SimControl::Hosts.new
+    scenario_a = {foo: 1}
+    expect(hosts.partition [scenario_a], "a-host").to eq([])
+  end
 end
