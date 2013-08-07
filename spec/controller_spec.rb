@@ -54,20 +54,20 @@ scenario
   end
 
   describe "#simulation" do
+    let(:klass) { double("Klass") }
     it "creates a new instance of the given class and passes the hash" do
+      script = "a-script"
       hash = double("Hash")
       instance = SimControl::Controller.new("", "", "", "")
-      Klass = double("Klass")
-      Klass.should_receive(:new).with(hash)
-      instance.simulation Klass, hash
+      klass.should_receive(:new).with(script, hash)
+      instance.simulation klass, script, hash
     end
 
     it "allows for the instance to be obtained as #current_simulation" do
       simulation_instance = double("simulation_instance")
       instance = SimControl::Controller.new("", "", "", "")
-      Klass = double("Klass")
-      Klass.stub(:new) { simulation_instance }
-      instance.simulation Klass, {}
+      klass.stub(:new) { simulation_instance }
+      instance.simulation klass, "script", {}
       expect(instance.current_simulation).to be(simulation_instance)
     end
   end

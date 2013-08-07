@@ -22,7 +22,6 @@ describe SimControl::CLI do
       hostname = "a-hostname"
       File.open("scenarios/myScenario.rb", "w") {  |f| f.write(scenario_description) }
       File.open("Controlfile", "w") {  |f| f.write(simulation_description) }
-      Socket = double()
       Socket.stub(:gethostname).and_return { hostname }
       SimControl::Controller.should_receive(:execute).with(hostname, simulation_description, scenario_description, results_path)
       SimControl::CLI.new.invoke :simulate, ["myScenario"]

@@ -1,4 +1,5 @@
 require "thor"
+require "socket"
 
 module SimControl
   class CLI < Thor
@@ -36,6 +37,7 @@ module SimControl
       def hostname
         Socket.gethostname
       end
+
       def simulation_description
         File.open(control_file_name).read
       end
