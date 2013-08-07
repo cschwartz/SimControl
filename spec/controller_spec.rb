@@ -107,6 +107,17 @@ scenario
       subject.run
     end
 
+    it "passes all_scenarios to partition" do
+      scenarios = [scenario_a, scenario_b]
+
+      subject.should_receive(:all_scenarios).and_return(scenarios)
+      hosts.should_receive(:partition).with(scenarios, anything()).and_return([scenarios]) 
+      simulation_instance.stub(:simulate)
+
+      subject.run
+    end
+
+
     it "spawns multiple threads if the hosts support it" do
       per_host_scenarios = [[scenario_a], [ scenario_b]]
 
