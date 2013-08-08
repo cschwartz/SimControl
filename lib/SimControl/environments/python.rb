@@ -8,12 +8,17 @@ module SimControl
     end
 
     def execute(scenario)
-      @interpreter = File.join(@virtualenv, "bin", @interpreter) if @virtualenv
       args = scenario.map { |k, v| "--#{ k } #{ v }" }.join " "
-      command = [@interpreter, @script, args].reject(&:nil?).reject(&:empty?).join " "
-      p command
+      command = [interpreter, @script, args].reject(&:nil?).reject(&:empty?).join " "
       `#{ command }`
     end
 
+    def interpreter
+      if @virtualenv
+        File.join(@virtualenv, "bin", @interpreter) 
+      else 
+        @interpreter
+      end
+    end
   end
 end

@@ -11,14 +11,23 @@ class SimControl::Hosts
   end
 
   def number_of_cores
-    @hosts.map { |k, v| v[:cores] }.reduce(:+)
+    @hosts.map { |k, v| v[:cores] }.reduce(0, :+)
   end
 
   def partition(all_scenarios, hostname)
-    host_index = @hosts.keys.index(hostname)
-    return [] unless host_index
-    scenario_groups = all_scenarios.in_groups_of(number_of_cores)
-    scenario_groups[host_index]
+    return [] if number_of_cores == 0
+    scenario_groups = all_scenarios.in_groups_of(number_of_cores, false)
+    scenario_groups[host_indices hostname]
+  end
+
+  def host_indices(hostname)
+    return 0..0 unless @hosts.include? hostname
+    start_index = 0
+    @hosts.each do |current_hostname, options|
+      cores = options[:cores]
+      return (start_index ... (start_index + cores)) if current_hostname == hostname
+      start_index += cores
+    end
   end
 
   def process(&block)
