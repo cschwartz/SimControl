@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    SimControl (0.0.1)
+    SimControl (0.1.0)
       active_support
       i18n
       thor

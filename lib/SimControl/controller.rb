@@ -20,7 +20,7 @@ module SimControl
       instance_eval(@simulation_description)
       instance_eval(@scenario_description)
 
-      p host_scenarios = @hosts.partition(all_scenarios, @hostname)
+      host_scenarios = @hosts.partition(all_scenarios, @hostname)
 
       host_scenarios.each do |scenarios_per_core|
         threads = []
