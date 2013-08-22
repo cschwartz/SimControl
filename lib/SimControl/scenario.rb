@@ -6,19 +6,19 @@ module SimControl
         args.pop
       end
       @commands = args
-      @options = options
+      @options = options || {}
     end
 
-    def options
-      @options.map { |k, v| "--#{ k } #{ v }" }.join " "
+    def options(other_options = {})
+      other_options.merge(@options).map { |k, v| "--#{ k } #{ v }" }.join " "
     end
 
     def commands
       @commands.join(" ").strip
     end
 
-    def args
-      [commands, options].join " "
+    def args(other_options = {})
+      [commands, options(other_options)].join(" ").strip
     end
   end
 end

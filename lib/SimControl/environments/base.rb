@@ -1,8 +1,8 @@
 module SimControl
   class BaseEnvironment
-    def simulate(args, seeds)
+    def simulate(scenario, seeds)
       seeds.each do |seed|
-        execute(args.merge({seed: seed}))
+        execute(scenario.args({seed: seed}))
       end
     end
   end

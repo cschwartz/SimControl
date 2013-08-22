@@ -15,4 +15,9 @@ describe SimControl::Scenario do
     scenario = SimControl::Scenario.new "foo", "bar", baz: "1", qux: 2
     expect(scenario.args).to eq("foo bar --baz 1 --qux 2")
   end
+
+  it "merges options passed to args in the options" do
+    scenario = SimControl::Scenario.new
+    expect(scenario.args(seed: 1)).to eq("--seed 1")
+  end
 end
