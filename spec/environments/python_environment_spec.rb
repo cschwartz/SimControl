@@ -23,11 +23,6 @@ describe SimControl::PythonEnvironment do
       expect(simulation.script).to eq("a-script")
     end
 
-    it "passes args to the script in -- syntax" do
-      simulation = SimControl::PythonEnvironment.new script
-      expect(simulation.args({foo: "bar", baz: 1})).to eq("--foo bar --baz 1")
-    end
-
     it "uses a given interpreter" do
       simulation = SimControl::PythonEnvironment.new script, interpreter: "pypy"
       expect(simulation.interpreter).to eq("pypy")
@@ -40,9 +35,10 @@ describe SimControl::PythonEnvironment do
     
     it "composes the command" do
       simulation = SimControl::PythonEnvironment.new script
-      simulation.stub(:args).and_return "--args 1"
+      scenario = double("scenario")
+      scenario.should_receive(:args).and_return("--args 1")
       simulation.stub(:interpreter).and_return "/foo/jpython"
-      expect(simulation.command(args: 1)).to eq("/foo/jpython a-script --args 1")
+      expect(simulation.command(scenario)).to eq("/foo/jpython a-script --args 1")
     end
 
     it "raised an exception is a virtualenv is passed but no interpreter" do

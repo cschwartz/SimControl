@@ -72,13 +72,25 @@ scenario
     end
   end
 
+  describe "#create_scenario" do
+    it "passes the parameters to Scenario.new and returns the new scenario instance" do
+      scenario_klass = double("Scenario")
+      a_scenario = double("ScenarioInstance")
+      instance = SimControl::Controller.new("", "", "", "", scenario_klass: scenario_klass)
+      scenario_klass.should_receive(:new).with("a-command", a_hash: 1).and_return(a_scenario)
+      expect(instance.create_scenario("a-command", a_hash: 1)).to eq(a_scenario)
+    end
+  end
+
   describe "#scenario" do
     it "stores all provided scenarios in all_scenarios" do
-      scenario_a = {foo: 1}
-      scenario_b = {foo: 2}
+      scenario_a = double("Scenario")
+      scenario_b = double("Scenario")
       instance = SimControl::Controller.new("", "", "", "")
-      instance.simulate scenario_a
-      instance.simulate scenario_b
+      instance.stub(:create_scenario).with("a-command", a_hash: 1).and_return(scenario_a)
+      instance.stub(:create_scenario).with("b-command", b_hash: 2).and_return(scenario_b)
+      instance.simulate "a-command", a_hash: 1
+      instance.simulate "b-command", b_hash: 2
       expect(instance.all_scenarios).to include(scenario_a)
       expect(instance.all_scenarios).to include(scenario_b)
     end
@@ -91,7 +103,7 @@ scenario
     let(:seeds) { [1, 2] }
     let(:simulation_instance) { double("simulation_instance") }
     let(:hosts) { double("Hosts") }
-      subject { SimControl::Controller.new(hostname, "", "", "", hosts: hosts).tap do |c|
+    subject { SimControl::Controller.new(hostname, "", "", "", hosts: hosts).tap do |c|
         c.stub(:seeds).and_return(seeds)
         c.stub(:current_simulation).and_return(simulation_instance)
       end

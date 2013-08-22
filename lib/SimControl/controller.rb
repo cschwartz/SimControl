@@ -4,6 +4,7 @@ module SimControl
 
     def initialize(hostname, simulation_description, scenario_description, results_directory, args = {})
       @hosts = args.delete(:hosts) || SimControl::Hosts.new
+      @scenario_klass = args.delete(:scenario_klass) || SimControl::Scenario
 
       @hostname = hostname
       @simulation_description = simulation_description
@@ -15,6 +16,10 @@ module SimControl
       @meta_seed = 13
       @max_seed = 2**(32 - 1) - 1
     end 
+
+    def create_scenario(*args)
+      @scenario_klass.new(*args)
+    end
 
     def run
       instance_eval(@simulation_description)
@@ -53,8 +58,8 @@ module SimControl
       (1..@number_of_repetitions).map { @rng.rand(@max_seed) }
     end
 
-    def simulate(scenario)
-      @scenarios << scenario
+    def simulate(*scenario)
+      @scenarios << (create_scenario *scenario)
     end
 
     def all_scenarios

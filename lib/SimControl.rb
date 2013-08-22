@@ -2,6 +2,7 @@ require "SimControl/version"
 require "SimControl/cli"
 require "SimControl/controller"
 require "SimControl/hosts"
+require "SimControl/scenario"
 require "SimControl/environments/base"
 require "SimControl/environments/python"
 

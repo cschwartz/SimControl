@@ -14,7 +14,7 @@ module SimControl
     end
 
     def args(scenario)
-      scenario.map { |k, v| "--#{ k } #{ v }" }.join " "
+      scenario.args
     end
 
     def execute(scenario)
