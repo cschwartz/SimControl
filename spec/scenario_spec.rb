@@ -13,7 +13,7 @@ describe SimControl::Scenario do
 
   it "generates the complete arguments string" do
     scenario = SimControl::Scenario.new "foo", "bar", baz: "1", qux: 2
-    expect(scenario.args).to eq("foo bar --baz 1 --qux 2")
+    expect(scenario.args).to eq("--baz 1 --qux 2 foo bar")
   end
 
   it "merges options passed to args in the options" do

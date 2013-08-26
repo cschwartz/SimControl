@@ -18,7 +18,7 @@ module SimControl
     end
 
     def args(other_options = {})
-      [commands, options(other_options)].join(" ").strip
+      [options(other_options), commands].join(" ").strip
     end
   end
 end

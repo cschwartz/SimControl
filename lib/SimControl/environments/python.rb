@@ -13,10 +13,6 @@ module SimControl
       @script
     end
 
-    def args(scenario)
-      scenario.args
-    end
-
     def execute(scenario)
       stdin, stout, stderr, thread = Open3.popen3 command(scenario), chdir: basedir
       thread.join
@@ -27,7 +23,7 @@ module SimControl
     end
 
     def command(scenario)
-      [interpreter, script, args(scenario)].reject(&:nil?).reject(&:empty?).join " "
+      [interpreter, script, scenario].reject(&:nil?).reject(&:empty?).join " "
     end
 
     def interpreter

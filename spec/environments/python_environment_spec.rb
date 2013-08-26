@@ -35,8 +35,7 @@ describe SimControl::PythonEnvironment do
     
     it "composes the command" do
       simulation = SimControl::PythonEnvironment.new script
-      scenario = double("scenario")
-      scenario.should_receive(:args).and_return("--args 1")
+      scenario = "--args 1"
       simulation.stub(:interpreter).and_return "/foo/jpython"
       expect(simulation.command(scenario)).to eq("/foo/jpython a-script --args 1")
     end
