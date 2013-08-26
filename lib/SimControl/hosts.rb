@@ -16,7 +16,7 @@ class SimControl::Hosts
 
   def partition(all_scenarios, hostname)
     return [] if number_of_cores == 0
-    scenario_groups = all_scenarios.in_groups_of(number_of_cores, false)
+    scenario_groups = all_scenarios.in_groups(number_of_cores, false)
     scenario_groups[host_indices hostname]
   end
 

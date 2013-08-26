@@ -40,6 +40,21 @@ describe SimControl::Hosts do
     expect(host_b_scenarios.first).to include(scenario_d)
   end
 
+  it "gives all scenarios to one host if only one host with one core exists" do
+    hosts = SimControl::Hosts.new
+    hosts.use "host-a"
+    scenario_a = {foo: 1}
+    scenario_b = {foo: 2}
+    scenario_c = {foo: 3}
+    scenario_d = {foo: 4}
+    all_scenarios = [scenario_a, scenario_b, scenario_c, scenario_d]
+    host_a_scenarios = hosts.partition all_scenarios, "host-a"
+    expect(host_a_scenarios.first).to include(scenario_a)
+    expect(host_a_scenarios.first).to include(scenario_b)
+    expect(host_a_scenarios.first).to include(scenario_c)
+    expect(host_a_scenarios.first).to include(scenario_d)
+  end
+
   it "returns the empty list if no hosts exist" do
     hosts = SimControl::Hosts.new
     scenario_a = {foo: 1}
