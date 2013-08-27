@@ -2,7 +2,8 @@ require "open3"
 
 module SimControl
   class PythonEnvironment < BaseEnvironment
-    def initialize(script, args = {})
+    def initialize(script, results_directory, args = {})
+      super(results_directory)
       @script = script
       @interpreter = args.delete(:interpreter)
       @virtualenv = args.delete(:virtualenv)

@@ -50,7 +50,7 @@ module SimControl
     end
 
     def simulation(klass, script, arguments)
-      @current_simulation = klass.new script, arguments
+      @current_simulation = klass.new script, @results_directory, arguments
     end
 
     def seeds

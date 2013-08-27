@@ -55,11 +55,12 @@ scenario
 
   describe "#simulation" do
     let(:klass) { double("Klass") }
-    it "creates a new instance of the given class and passes the hash" do
+    it "creates a new instance of the given class and passes the hash, and the results directory" do
       script = "a-script"
       hash = double("Hash")
-      instance = SimControl::Controller.new("", "", "", "")
-      klass.should_receive(:new).with(script, hash)
+      results_directory = "results/scenario_name"
+      instance = SimControl::Controller.new("", "", "", results_directory)
+      klass.should_receive(:new).with(script, results_directory, hash)
       instance.simulation klass, script, hash
     end
 
