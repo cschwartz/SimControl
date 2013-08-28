@@ -6,8 +6,11 @@ require "fakefs/spec_helpers"
 describe SimControl::CLI do
   include FakeFS::SpecHelpers
   describe "simulate" do
+    let(:root) { "/an/absolute/path" }
     before(:each) do
       scenario = "hosts {}"
+      FileUtils.mkdir_p(root)
+      Dir.chdir(root)
       FileUtils.mkdir("scenarios")
       FileUtils.mkdir("results")
       FileUtils.touch("Controlfile")
@@ -18,7 +21,8 @@ describe SimControl::CLI do
     it  "calls SimControl::Controller.execute()" do
       scenario_description = "scenario"
       simulation_description = "simulation"
-      results_path = File.join("results", "myScenario")
+      Dir.stub(pwd: root)
+      results_path = File.join(root, "results", "myScenario")
       hostname = "a-hostname"
       File.open("scenarios/myScenario.rb", "w") {  |f| f.write(scenario_description) }
       File.open("Controlfile", "w") {  |f| f.write(simulation_description) }
@@ -28,7 +32,7 @@ describe SimControl::CLI do
     end
 
     it "fails if no results directory exists" do
-      FileUtils.rm_rf("results")
+      FileUtils.rm_rf("/an/absolute/path/results")
       expect do
         SimControl::CLI.new.invoke :simulate, ["myScenario"]
       end.to raise_error(Thor::Error, /results missing/)
