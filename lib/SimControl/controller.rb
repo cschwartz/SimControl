@@ -33,10 +33,9 @@ module SimControl
           threads << Thread.new do
             current_simulation.simulate(scenario, seeds)
           end
-
-          threads.each do |thread|
-            thread.join
-          end
+        end
+        threads.each do |thread|
+          thread.join
         end
       end
     end
