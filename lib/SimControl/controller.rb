@@ -27,16 +27,16 @@ module SimControl
 
       host_scenarios = @hosts.partition(all_scenarios, @hostname)
 
+      threads = []
       host_scenarios.each do |scenarios_per_core|
-        threads = []
-        scenarios_per_core.each do |scenario|
-          threads << Thread.new do
+        threads << Thread.new do
+          scenarios_per_core.each do |scenario|
             current_simulation.simulate(scenario, seeds)
           end
         end
-        threads.each do |thread|
-          thread.join
-        end
+      end
+      threads.each do |thread|
+        thread.join
       end
     end
 
